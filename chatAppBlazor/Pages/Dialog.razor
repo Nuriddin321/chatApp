@@ -1,0 +1,54 @@
+@inject HttpClient Http
+@inject IDialogService DialogService
+
+
+<MudDialog>
+    <DialogContent>
+        <MudTextField @bind-Value="key" T="string" Label="key"></MudTextField>
+        <br>
+        @if(_result == "wrong key")
+        {
+            <MudText Color="Color.Error">@_result</MudText><br>
+        }
+        else if(_result is not null)
+        {
+            <MudButton  Href="@_result" Variant="Variant.Filled" Color="Color.Primary">@_groupName.Item2 guruhiga otish</MudButton><br><br>  
+        }
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; }
+    
+
+    private string? key;
+    private string? _result;
+    private Tuple<bool, string?>? _groupName;
+    
+    async Task Submit()
+    {
+        var responseMessage = await Http.PostAsJsonAsync("https://localhost:7248/api/Account/key", key);
+        _groupName = await responseMessage.Content.ReadFromJsonAsync<Tuple<bool, string?>>();
+      
+        if(_groupName.Item1)
+        {
+           // var groupLink = $"/groups/{_groupName.Item2}";
+            // <MudButton  Href="@groupLink" Variant="Variant.Filled" Color="Color.Primary">@_groupName.Item2</MudButton><br><br> 
+
+            _result = $"/groups/{_groupName.Item2}";
+        }
+        else
+        {
+            _result = "wrong key";
+        }
+        //MudDialog.Close(DialogResult.Ok(true));
+    } 
+    void Cancel() => MudDialog.Cancel();
+}

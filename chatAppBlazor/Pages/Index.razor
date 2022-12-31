@@ -1,0 +1,48 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject HttpClient Http
+
+<h1>Public chat</h1>
+<br> <br>
+@foreach (var item in _messagelaniListi)
+{
+    <p>@item </p><br>
+}
+
+ 
+<MudTextField @bind-Value="message" Label="Message" Variant="Variant.Outlined"></MudTextField>
+<MudButton OnClick="@(async () => await XabarYubor())" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Send"  >Send</MudButton>
+
+<br> <br><br> <br><br> <br><br> <br><br> <br>
+
+@code {
+    private readonly List<string> _messagelaniListi = new();
+    private HubConnection _hubConnection;
+    private string? message;
+    protected override async Task OnInitializedAsync()
+    {       
+        //birinchi frontendan turib api ga ulanvoladi
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl("https://localhost:7248/jeki")
+            .Build();
+        
+        //keyin api messageni  qaysi metodga yuborvotganini aniqliydi va shu metodni ishga tushiradi 
+
+        _hubConnection.On<string, string>("MessageHandler", (username, message) => 
+        {
+            _messagelaniListi.Add($"{username} : {message}");
+            InvokeAsync(StateHasChanged); // bu metod pageni qayta rendr qiberadi
+        });
+        
+        await _hubConnection.StartAsync();
+    }
+
+    private async Task XabarYubor() // bu metod xabarni  apining "MessageYubor" metodiga yuboradi 
+    {
+        if(_hubConnection.State == HubConnectionState.Connected)
+        {
+            await _hubConnection.SendAsync("MessageYubor", message);
+        }
+    }
+}
+ 
