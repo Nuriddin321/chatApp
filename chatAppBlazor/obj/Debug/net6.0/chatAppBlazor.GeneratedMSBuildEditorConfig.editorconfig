@@ -11,41 +11,41 @@ build_property.EnableTrimAnalyzer = true
 build_property.IncludeAllContentForSelfExtract = 
 build_property.RootNamespace = chatAppBlazor
 build_property.RootNamespace = chatAppBlazor
-build_property.ProjectDir = c:\Users\donko\OneDrive\Ishchi stol\chatApi\chatAppBlazor\
+build_property.ProjectDir = C:\Users\donko\OneDrive\Ishchi stol\chatApi\chatAppBlazor\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = c:\Users\donko\OneDrive\Ishchi stol\chatApi\chatAppBlazor
+build_property.MSBuildProjectDirectory = C:\Users\donko\OneDrive\Ishchi stol\chatApi\chatAppBlazor
 build_property._RazorSourceGeneratorDebug = 
 
-[c:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/App.razor]
+[C:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Pages/Dialog.razor]
+[C:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Pages/Dialog.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlhbG9nLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Pages/Groups.razor]
+[C:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Pages/Groups.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3JvdXBzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Pages/GroupsList.razor]
+[C:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Pages/GroupsList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3JvdXBzTGlzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Pages/Index.razor]
+[C:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Shared/MainLayout.razor]
+[C:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Shared/NavMenu.razor]
+[C:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[c:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/_Imports.razor]
+[C:/Users/donko/OneDrive/Ishchi stol/chatApi/chatAppBlazor/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

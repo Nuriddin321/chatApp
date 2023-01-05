@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatApi\\chatApi.csproj": {}
+    "C:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatApi\\chatApi.csproj": {}
   },
   "projects": {
-    "c:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatApi\\chatApi.csproj": {
+    "C:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatApi\\chatApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatApi\\chatApi.csproj",
+        "projectUniqueName": "C:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatApi\\chatApi.csproj",
         "projectName": "chatApi",
-        "projectPath": "c:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatApi\\chatApi.csproj",
+        "projectPath": "C:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatApi\\chatApi.csproj",
         "packagesPath": "C:\\Users\\donko\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatApi\\obj\\",
+        "outputPath": "C:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\donko\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -70,7 +70,7 @@
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.2, )"
+              "version": "[12.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

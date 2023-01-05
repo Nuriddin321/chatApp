@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using chatApi.Dtos;
 using chatApi.Entities;
 using chatApi.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -26,13 +27,17 @@ public class ChatHub : Hub
     }
 
     [Authorize]
-    public async Task SendMessageToGroup(string group, string message)
+    public async Task SendMessageToGroup(string groupName, string message)
     {
         var username = Context.User.FindFirstValue(ClaimTypes.Name);
 
-        await Clients.All.SendAsync("MessageFromApiToBlazorForGroups", username, message);
-    }
+        await _messageService.AddMessageToGroup(groupName, $"{username}: {message}");
 
+        var messageList = await _messageService.GetGroupMessages(groupName);
+
+        await Clients.All.SendAsync("MessageFromApiToBlazorForGroups", messageList);
+    }
+ 
     [Authorize]
     public async Task CreateChatGroup(string name)
     {
@@ -46,16 +51,27 @@ public class ChatHub : Hub
             Key = Guid.NewGuid().ToString("N")[..10],
         };
 
-        await _messageService.CreateChatGroup(createGroup);
+        await _messageService.CreateGroup(createGroup);
 
         user.IsAdmin = true;
         await _userManager.UpdateAsync(user);
 
         var group = await _messageService.GetGroups();
 
-        await Clients.All.SendAsync("GroupCreated", group, user.UserName);
+        var userDto = new AppUserDto()
+        {
+            Id = user.Id,
+            UserName = user.UserName,
+            IsAdmin = user.IsAdmin,
+            ChatGroupId = user.ChatGroupId
+        };
+
+        Tuple<List<ChatGroup>?, AppUserDto?>? tupleOfGroupsAndUser = new Tuple<List<ChatGroup>?, AppUserDto?>(group, userDto);
+
+        await Clients.All.SendAsync("GroupCreated", tupleOfGroupsAndUser);
     }
 
+    [Authorize]
     public async Task GroupgaQoshilish(string group)
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, group);

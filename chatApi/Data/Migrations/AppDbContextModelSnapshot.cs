@@ -77,7 +77,8 @@ namespace chatApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChatGroupId");
+                    b.HasIndex("ChatGroupId")
+                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -98,6 +99,9 @@ namespace chatApi.Data.Migrations
                     b.Property<string>("Key")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("MessageId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -106,9 +110,26 @@ namespace chatApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("ChatGroups");
+                });
+
+            modelBuilder.Entity("chatApi.Entities.Message", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ChatGroupId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatGroupId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -242,19 +263,19 @@ namespace chatApi.Data.Migrations
             modelBuilder.Entity("chatApi.Entities.AppUser", b =>
                 {
                     b.HasOne("chatApi.Entities.ChatGroup", "ChatGroup")
-                        .WithMany()
-                        .HasForeignKey("ChatGroupId");
+                        .WithOne("User")
+                        .HasForeignKey("chatApi.Entities.AppUser", "ChatGroupId");
 
                     b.Navigation("ChatGroup");
                 });
 
-            modelBuilder.Entity("chatApi.Entities.ChatGroup", b =>
+            modelBuilder.Entity("chatApi.Entities.Message", b =>
                 {
-                    b.HasOne("chatApi.Entities.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                    b.HasOne("chatApi.Entities.ChatGroup", "ChatGroup")
+                        .WithMany("Messages")
+                        .HasForeignKey("ChatGroupId");
 
-                    b.Navigation("User");
+                    b.Navigation("ChatGroup");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -306,6 +327,13 @@ namespace chatApi.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("chatApi.Entities.ChatGroup", b =>
+                {
+                    b.Navigation("Messages");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

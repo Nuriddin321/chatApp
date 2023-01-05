@@ -5,36 +5,24 @@
 @inject IDialogService DialogService
 
 <h3>Groups</h3>
-<h3>Username: @userName </h3>
+<h3>Username: @_groups.Item2.UserName </h3>
 
 <br>
 
-@* <MudButton @onclick="OpenDialog" Variant="Variant.Filled" Color="Color.Primary">
-    Open Dialog
-    </MudButton> *@
-
-
-@if (_groups.Count <= 0 || _groups is null)
+@if (_groups.Item1.Count <= 0)
 {
     <p>Create new group or go to public chat</p><br>
     <MudLink Href="/"> Public chat </MudLink><br>
 }
 else
 {
-    @foreach (var group in _groups)
-    {
-        @* var groupLink = $"/groups/{group.Name}";
-            <MudButton Href="@groupLink" Variant="Variant.Filled" Color="Color.Primary">@group.Name</MudButton><br><br> *@
-
-        //if user isadmin true || user shu groupga tegishli bo'lsa primoy kiradi
-        //else cherez okoshka orqali
-
-        @if (userName == group.User.Username )
+    @foreach (var group in _groups.Item1)
+    {  
+        @if (_groups.Item2.UserName == group.User.UserName)
         {
-            <p> sho'tga keldi is admin o'xshadi</p>
-             var groupLink = $"/groups/{group.Name}";
-            <MudText Href="@groupLink" Variant="Variant.Filled" Color="Color.Error">@group.Name</MudText><br><br>
-           
+            var groupLink = $"/groups/{group.Name}";
+            <MudButton Href="@groupLink" Variant="Variant.Filled" Color="Color.Success">@group.Name</MudButton><br><br>
+
         }
         else
         {
@@ -42,6 +30,7 @@ else
                 @group.Name
             </MudButton> <br><br>
         }
+
     }
 }
 
@@ -52,30 +41,33 @@ else
 
 
 @code {
-    private List<ChatGroup>? _groups = new();
+    private Tuple<List<ChatGroup>?, AppUserDto?>? _groups = new Tuple<List<ChatGroup>?, AppUserDto?>(new(), new());
     private string? groupName;
-    private string? userName;
 
     private HubConnection? _hubConnection;
+
     protected override async Task OnInitializedAsync()
     {
         _hubConnection = new HubConnectionBuilder()
-        .WithUrl("https://localhost:7248/jeki") // jeki routi apini program.csda yozilgan
+        .WithUrl("https://localhost:7248/jeki")
         .Build();
-        
-        userName = await Http.GetStringAsync("https://localhost:7248/api/Account/profile");
 
-        _hubConnection?.On<List<ChatGroup>, string>("GroupCreated", GetGroup);
+
+        _hubConnection?.On<Tuple<List<ChatGroup>?, AppUserDto?>?>("GroupCreated", GetGroup);
+
         await _hubConnection?.StartAsync();
 
-        _groups = await Http.GetFromJsonAsync<List<ChatGroup>>("https://localhost:7248/api/Account/groups");
-         
+       var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:7248/api/Account/groups");
+      
+       request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include); // bu browserdan cookilarini opkeladi
+       
+       _groups = await (await Http.SendAsync(request)).Content.ReadFromJsonAsync<Tuple<List<ChatGroup>?, AppUserDto?>?>();
+
     }
 
-    private void GetGroup(List<ChatGroup> group, string username)
+    private void GetGroup(Tuple<List<ChatGroup>?, AppUserDto?>? group)
     {
         _groups = group;
-       // userName = username;
         StateHasChanged();
     }
 
@@ -88,7 +80,6 @@ else
             await _hubConnection.InvokeAsync("CreateChatGroup", groupName ?? randomGroupName);
         }
     }
-
 
     void OpenDialog()
     {

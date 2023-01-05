@@ -31,7 +31,8 @@ builder.Services.AddCors(cors =>
     {
         corsPolicy.AllowAnyMethod();
         corsPolicy.AllowAnyHeader();
-        corsPolicy.AllowAnyOrigin();
+        corsPolicy.WithOrigins("https://localhost:5001")
+        .AllowCredentials();
     });
 });
 

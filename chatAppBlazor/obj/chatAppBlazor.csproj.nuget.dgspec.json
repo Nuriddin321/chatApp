@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatAppBlazor\\chatAppBlazor.csproj": {}
+    "C:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatAppBlazor\\chatAppBlazor.csproj": {}
   },
   "projects": {
-    "c:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatAppBlazor\\chatAppBlazor.csproj": {
+    "C:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatAppBlazor\\chatAppBlazor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatAppBlazor\\chatAppBlazor.csproj",
+        "projectUniqueName": "C:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatAppBlazor\\chatAppBlazor.csproj",
         "projectName": "chatAppBlazor",
-        "projectPath": "c:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatAppBlazor\\chatAppBlazor.csproj",
+        "projectPath": "C:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatAppBlazor\\chatAppBlazor.csproj",
         "packagesPath": "C:\\Users\\donko\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatAppBlazor\\obj\\",
+        "outputPath": "C:\\Users\\donko\\OneDrive\\Ishchi stol\\chatApi\\chatAppBlazor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\donko\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -48,10 +48,6 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.7, )"
-            },
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[6.0.12, )"
             },
             "Microsoft.AspNetCore.SignalR.Client": {
               "target": "Package",

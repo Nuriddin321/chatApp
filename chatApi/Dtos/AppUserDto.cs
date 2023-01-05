@@ -1,5 +1,6 @@
-namespace chatAppBlazor.Pages.Dtos;
-public class AppUser
+namespace chatApi.Dtos;
+
+public class AppUserDto
 {
     public string? Id { get; set; }
     public string? UserName { get; set; }

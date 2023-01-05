@@ -1,10 +1,11 @@
-@* @page "/groups/{GroupName}"
+@page "/groups/{GroupName}"
 @using Microsoft.AspNetCore.SignalR.Client
 @inject HttpClient Http
 
 <h1>@GroupName</h1>
 
-<h1>Username: @_hubConnection?.ConnectionId</h1>
+@* <h1>Username: @_hubConnection?.ConnectionId</h1> *@
+
 
 @foreach (var _message in _listMessages)
 {
@@ -12,7 +13,7 @@
     <br>
 }
 
-<MudTextField  @bind-Value="message" Label="Message" Variant="Variant.Outlined"></MudTextField>
+<MudTextField @bind-Value="message" Label="Message" Variant="Variant.Outlined"></MudTextField>
 <MudButton OnClick="SendMessageToApi" Variant="Variant.Filled">Send</MudButton>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -20,38 +21,40 @@
 @code {
     [Parameter]
     public string? GroupName { get; set; }
-    private List<string>? _listMessages = new List<string>();
+    // private List<string>? _listMessages = new List<string>();
+    private List<Dtos.Message>? _listMessages = new();
     private string? message { get; set; }
     private HubConnection? _hubConnection;
 
     protected override async Task OnInitializedAsync()
     {
-        _hubConnection = new HubConnectionBuilder()
-        .WithUrl("https://localhost:7248/jeki") // jeki routi apini program.csda yozilgan
-        .Build();
+        //_hubConnection = new HubConnectionBuilder()
+        //.WithUrl("https://localhost:7248/jeki") // jeki routi apini program.csda yozilgan
+        //.Build();
 
-        _hubConnection.On<string, string>("MessageFromApiToBlazorForGroups", GetMessage); // agar apidan shu "MessageFromApiToBlazorForGroups" nomli metodga xabar yuborilsa GetMessage metodini ishga tushiradi
-        
+        _hubConnection.On<List<Dtos.Message>?>("MessageFromApiToBlazorForGroups", GetMessage);
+        // agar apidan shu "MessageFromApiToBlazorForGroups" nomli metodga xabar yuborilsa GetMessage metodini ishga tushiradi
+
         await _hubConnection.StartAsync();
 
         await _hubConnection.InvokeAsync("GroupgaQoshilish", GroupName);
 
-       _listMessages = await Http.GetFromJsonAsync<List<string>>($"https://localhost:7248/api/Account/groups/{GroupName}");
+        _listMessages = await
+        Http.GetFromJsonAsync<List<Dtos.Message>?>($"https://localhost:7248/api/Account/groups/{GroupName}");
     }
 
-    private void GetMessage(string username, string message)
+    private void GetMessage(List<Dtos.Message>? message)
     {
-        _listMessages.Add($"{username}: {message} ");
+        _listMessages = message;
 
         StateHasChanged();
     }
 
     private async Task SendMessageToApi()
     {
-        if(_hubConnection?.State == HubConnectionState.Connected)
+        if (_hubConnection?.State == HubConnectionState.Connected)
         {
-           await _hubConnection.InvokeAsync("SendMessageToGroup", GroupName, message ?? "null");
+            await _hubConnection.InvokeAsync("SendMessageToGroup", GroupName, message ?? "null");
         }
     }
-
-} *@
+}

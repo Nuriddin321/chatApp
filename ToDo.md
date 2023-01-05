@@ -1,6 +1,6 @@
-grouplani tanlavokanda agar user isAdmin = true  bo'lsa || guruhni userIdsiga teng bo'sa primoy gruppaga kiradi
+grouplani tanlavokanda agar user isAdmin = true  bo'lsa || user guruhni usernamega teng bo'sa primoy gruppaga kiradi
 
-guruhdigi shatni to'girlash
+guruhdigi chatni to'girlash
 
 registratsiya page 
 
